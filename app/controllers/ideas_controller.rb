@@ -10,6 +10,7 @@ class IdeasController < ApplicationController
   # GET /ideas/1
   # GET /ideas/1.json
   def show
+    @comment = @idea.comments.build
   end
 
   # GET /ideas/new
@@ -24,7 +25,8 @@ class IdeasController < ApplicationController
   # POST /ideas
   # POST /ideas.json
   def create
-    @idea = Idea.new(idea_params)
+    @idea = current_user.ideas.build(idea_params)
+    @comment = @idea.comments.build
 
     respond_to do |format|
       if @idea.save

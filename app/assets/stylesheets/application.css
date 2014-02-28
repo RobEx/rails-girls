@@ -1,6 +1,6 @@
 body { padding-top: 50px; }
 footer { margin-top: 100px; }
-table, td, th { vertical-align: middle !important; border: none !important; }
+table, td, th { vertical-align: middle !important; border: none !important; padding: 5px; }
 th { border-bottom: 1px solid #DDD !important; }
 
 /*

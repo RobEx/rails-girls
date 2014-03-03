@@ -26,10 +26,10 @@ class IdeasController < ApplicationController
   # POST /ideas.json
   def create
     @idea = current_user.ideas.build(idea_params)
-    @comment = @idea.comments.build
 
     respond_to do |format|
       if @idea.save
+        @comment = @idea.comments.build
         format.html { redirect_to @idea, notice: 'Idea was successfully created.' }
         format.json { render action: 'show', status: :created, location: @idea }
       else

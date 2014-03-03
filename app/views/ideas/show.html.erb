@@ -19,15 +19,21 @@
   <%= image_tag(@idea.picture_url, :width => 600) if @idea.picture.present? %>
 </p>
 
+<%= link_to 'Edit', edit_idea_path(@idea) %> |
+<%= link_to 'Back', ideas_path %>
+
 <h3>Comments</h3>
 <% @idea.comments.each do |comment| %>
-  <div>
-    <strong><%= comment.user_name %></strong>
-    <br />
-    <p><%= comment.body %></p>
-  </div>
+  <% if comment.persisted? %> 
+    <div>
+      <strong><%= comment.idea.user.email %></strong> 
+      <br />
+      <p><%= comment.body %></p>
+      <%= link_to 'Edit', edit_comment_path(comment)%>
+      <%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>  
+  <% end %>
 <% end %>
 <%= render 'comments/form' %>
 
-<%= link_to 'Edit', edit_idea_path(@idea) %> |
-<%= link_to 'Back', ideas_path %>
+

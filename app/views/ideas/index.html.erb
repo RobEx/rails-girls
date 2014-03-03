@@ -26,7 +26,13 @@
         <td><%= idea.name %></td>
         <td><%= idea.description %></td>
         <td><%= idea.picture %></td>
-        <td><%= idea.user.email %></td>
+        <td>
+        <% if idea.user.email == nil %>
+        Dzests lietotajs  
+        <% else %>
+        <%= idea.user.email %>
+        <% end %>
+        </td>
         <td><%= link_to 'Show', idea %></td>
         <td><%= link_to 'Edit', edit_idea_path(idea) %></td>
         <td><%= link_to 'Destroy', idea, method: :delete, data: { confirm: 'Are you sure?' } %></td>

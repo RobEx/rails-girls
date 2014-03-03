@@ -1,0 +1,38 @@
+<p><h1>Profile</h1></p>
+
+<p><b>Your email:</b> <%= @user.email %></p>
+<p><b>Status:</b> <% if @user.admin == true %>
+					Admin <%= link_to 'User administration', users_path %>
+					<% else %>
+					Normal User
+				<% end %>
+
+</p>
+<p><b>Your created ideas:</b>
+	<table>
+  		<thead>
+    		<tr>
+      			<th>Name</th>
+      			<th>Description</th>
+      			<th>Picture</th>
+      			<th>User Name</th>
+      			<th></th>
+      			<th></th>
+      			<th></th>	
+    		</tr>
+  		</thead>
+		<% @ideas.each do |idea| %>
+		<% if idea.user.email == @user.email %>
+      		<tr>
+		        <td><%= idea.name %></td>
+		        <td><%= idea.description %></td>
+		        <td><%= idea.picture %></td>
+		        <td><%= idea.user.email %></td>
+		        <td><%= link_to 'Show', idea %></td>
+		        <td><%= link_to 'Edit', edit_idea_path(idea) %></td>
+		        <td><%= link_to 'Destroy', idea, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      		</tr>
+      		<% end %>
+    	<% end %>
+    	</table>
+</p>

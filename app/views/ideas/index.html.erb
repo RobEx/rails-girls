@@ -2,14 +2,14 @@
 
 <%= link_to 'New Idea', new_idea_path %>
 
-<table>
+<table class='table'>
   <thead>
     <tr>
       <th></th>
       <th>Name</th>
       <th>Description</th>
       <th>User Name</th>
-      <th>Comment Count</th>
+      <th>Comments</th>
       <% if only_my_ideas? %>
         <th></th>
         <th></th>
@@ -26,11 +26,11 @@
         </td>
 
         <td>
-          <%= idea.name %>
+          <%= link_to idea.name, idea %>
         </td>
 
         <td>
-          <%= idea.description %>
+          <%= truncate(idea.description) %>
         </td>
 
         <td>
@@ -42,7 +42,7 @@
         </td>
 
         <td>
-          <%= idea.comments.count %>
+          <%= link_to idea.comments.count, polymorphic_path(idea, {autocomment: true}) %>
         </td>
 
         <% if only_my_ideas? %>

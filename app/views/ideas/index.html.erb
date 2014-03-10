@@ -1,4 +1,7 @@
-<h1>Listing ideas</h1>
+<h1>Ideas</h1>
+
+<%= link_to 'New Idea', new_idea_path %>
+
 <table>
   <thead>
     <tr>
@@ -15,10 +18,6 @@
 
   <tbody>
     <% @ideas.each do |idea| %>
-    <% if idea.draft == nil %>
-       <% idea.draft = false %>
-        <% end %>
-        <% if idea.draft == false %>
       <tr>
         <td><%= idea.name %></td>
         <td><%= idea.description %></td>
@@ -35,9 +34,7 @@
         <td><%= link_to 'Edit', edit_idea_path(idea) %></td>
         <td><%= link_to 'Destroy', idea, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-      <% end %>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'New Idea', new_idea_path %>

@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140303082119) do
+ActiveRecord::Schema.define(version: 20140310091348) do
+
+  create_table "censorships", force: true do |t|
+    t.string   "censored_word"
+    t.string   "replace_with"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "comments", force: true do |t|
     t.string   "user_id"
@@ -19,6 +26,7 @@ ActiveRecord::Schema.define(version: 20140303082119) do
     t.integer  "idea_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "comment_id"
   end
 
   create_table "ideas", force: true do |t|
@@ -28,6 +36,7 @@ ActiveRecord::Schema.define(version: 20140303082119) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.boolean  "draft",       default: false
   end
 
   create_table "projects", force: true do |t|
@@ -35,6 +44,15 @@ ActiveRecord::Schema.define(version: 20140303082119) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "replies", force: true do |t|
+    t.text     "description"
+    t.integer  "comment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+    t.integer  "idea_id"
   end
 
   create_table "users", force: true do |t|

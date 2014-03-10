@@ -23,6 +23,7 @@
   		</thead>
 		<% @ideas.each do |idea| %>
 		<% if idea.user.email == @user.email %>
+    <% if idea.draft == false || true %>
       		<tr>
 		        <td><%= idea.name %></td>
 		        <td><%= idea.description %></td>
@@ -32,6 +33,7 @@
 		        <td><%= link_to 'Edit', edit_idea_path(idea) %></td>
 		        <td><%= link_to 'Destroy', idea, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       		</tr>
+      <% end %>
       		<% end %>
     	<% end %>
     	</table>

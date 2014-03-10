@@ -7,6 +7,7 @@
 </head>
 <h1>Listing ideas</h1>
 
+
 <table>
   <thead>
     <tr>
@@ -14,6 +15,7 @@
       <th>Description</th>
       <th>Picture</th>
       <th>User Name</th>
+      <th>Comment Count</th>
       <th></th>
       <th></th>
       <th></th>
@@ -22,6 +24,10 @@
 
   <tbody>
     <% @ideas.each do |idea| %>
+    <% if idea.draft == nil %>
+       <% idea.draft = false %>
+        <% end %>
+        <% if idea.draft == false %>
       <tr>
         <td><%= idea.name %></td>
         <td><%= idea.description %></td>
@@ -33,10 +39,12 @@
         <%= idea.user.email %>
         <% end %>
         </td>
+        <td><%= idea.comments.count %></td>
         <td><%= link_to 'Show', idea %></td>
         <td><%= link_to 'Edit', edit_idea_path(idea) %></td>
         <td><%= link_to 'Destroy', idea, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

@@ -1,5 +1,7 @@
 <p id="notice"><%= notice %></p>
 
+<h1 class="h1">Idea Description</h1>
+
 <p>
   <strong>Username:</strong>
   <%= @idea.user.email%>
@@ -22,18 +24,31 @@
 <%= link_to 'Edit', edit_idea_path(@idea) %> |
 <%= link_to 'Back', ideas_path %>
 
-<h3>Comments</h3>
+<h3 class="h3">Comments</h3>
+
 <% @idea.comments.each do |comment| %>
   <% if comment.persisted? %> 
     <div>
-      <strong><%= comment.idea.user.email %></strong> 
+      <strong><%= comment.user.email %></strong> 
       <br />
-      <p><%= comment.body %></p>
+      <p><%= comment.censored_body %></p>
+      <% comment.replies.each do |r| %>
+
+
+      <div class="reply">
+      <strong><%= r.user.email %></strong> 
+      <%= r.description %>
+      <br />
+      <%= link_to 'Destroy', r, method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+
+      <% end %>
+      <%= link_to 'Reply', new_reply_path(comment_id: comment.id) %>
       <%= link_to 'Edit', edit_comment_path(comment)%>
       <%= link_to 'Destroy', comment, method: :delete, data: { confirm: 'Are you sure?' } %>
     </div>  
   <% end %>
 <% end %>
+<br />
 <%= render 'comments/form' %>
-
 

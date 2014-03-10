@@ -5,6 +5,7 @@ class CommentsController < ApplicationController
   # GET /comments.json
   def index
     @comments = Comment.all
+    @censorships = Censorship.all
   end
 
   # GET /comments/1
@@ -25,6 +26,7 @@ class CommentsController < ApplicationController
   # POST /comments.json
   def create
     @comment = current_user.comments.build(comment_params)
+    @censorship = Censorship.new
 
     respond_to do |format|
       if @comment.save

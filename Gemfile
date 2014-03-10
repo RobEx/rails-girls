@@ -6,6 +6,14 @@ gem 'rails', '4.0.2'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 
+# testing with rspec
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0.0.beta'
+end
+
+# nesting comments
+gem 'ancestry'
+
 # Use carrierwave as the picture upload
 gem 'carrierwave'
 

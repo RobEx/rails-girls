@@ -3,4 +3,6 @@ class Idea < ActiveRecord::Base
 	validates_presence_of :name, :description
 	has_many :comments
 	belongs_to :user
+	has_many :censorships
+
 end

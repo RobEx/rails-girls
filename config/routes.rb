@@ -13,11 +13,9 @@ Railsgirls::Application.routes.draw do
 
   resources :users
   
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-
-  # You can have the root of your site routed with "root"
   root to: redirect {|params, req| req.env['warden'].user ? '/pages/info' : '/users/sign_in' }
+
+  get '/my_ideas' => 'ideas#index', :only_my_ideas => true, as: :my_ideas
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

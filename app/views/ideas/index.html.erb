@@ -1,54 +1,58 @@
-<!DOCTYPE html>
-<html>
-<head>
- <link rel="stylesheet" href="//railsgirls.com/assets/bootstrap.css" />
-  <link rel="stylesheet" href="//railsgirls.com/assets/bootstrap-theme.css" />
-  <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
-</head>
-<h1>Listing ideas</h1>
+<h1>Ideas</h1>
 
+<%= link_to 'New Idea', new_idea_path %>
 
-<table>
+<table class='table'>
   <thead>
     <tr>
+      <th></th>
       <th>Name</th>
       <th>Description</th>
-      <th>Picture</th>
       <th>User Name</th>
-      <th>Comment Count</th>
-      <th></th>
-      <th></th>
-      <th></th>
+      <th>Comments</th>
+      <% if only_my_ideas? %>
+        <th></th>
+        <th></th>
+        <th></th>
+      <% end %>
     </tr>
   </thead>
 
   <tbody>
     <% @ideas.each do |idea| %>
-    <% if idea.draft == nil %>
-       <% idea.draft = false %>
-        <% end %>
-        <% if idea.draft == false %>
       <tr>
-        <td><%= idea.name %></td>
-        <td><%= idea.description %></td>
-        <td><%= idea.picture %></td>
         <td>
-        <% if idea.user.email == nil %>
-        Dzests lietotajs  
-        <% else %>
-        <%= idea.user.email %>
-        <% end %>
+          <%= image_tag(idea.picture.path, width: 60, height: 60) if idea.picture.present? %>
         </td>
-        <td><%= idea.comments.count %></td>
-        <td><%= link_to 'Show', idea %></td>
-        <td><%= link_to 'Edit', edit_idea_path(idea) %></td>
-        <td><%= link_to 'Destroy', idea, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+        <td>
+          <%= link_to idea.name, idea %>
+        </td>
+
+        <td>
+          <%= truncate(idea.description) %>
+        </td>
+
+        <td>
+          <% if idea.user %>
+            <%= idea.user.email %>
+          <% else %>
+            Dzests lietotajs
+          <% end %>
+        </td>
+
+        <td>
+          <%= link_to idea.comments.count, polymorphic_path(idea, {autocomment: true}) %>
+        </td>
+
+        <% if only_my_ideas? %>
+          <td><%= link_to 'Show', idea %></td>
+          <td><%= link_to 'Edit', edit_idea_path(idea) %></td>
+          <td><%= link_to 'Destroy', idea, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
+
       </tr>
-      <% end %>
     <% end %>
   </tbody>
 </table>
 
-<br>
-</html>
-<%= link_to 'New Idea', new_idea_path %>

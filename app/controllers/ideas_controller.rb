@@ -4,9 +4,11 @@ class IdeasController < ApplicationController
   # GET /ideas
   # GET /ideas.json
   def index
-    @ideas = Idea.all
-    @comments = Comment.all
-
+    if only_my_ideas?
+      @ideas = current_user.ideas
+    else
+      @ideas = Idea.published
+    end
   end
 
   # GET /ideas/1
@@ -67,14 +69,22 @@ class IdeasController < ApplicationController
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_idea
-      @idea = Idea.find(params[:id])
-    end
+  protected
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def idea_params
-      params.require(:idea).permit(:name, :description, :picture, :draft)
-    end
+  def only_my_ideas?
+    params[:only_my_ideas].present?
+  end
+  helper_method :only_my_ideas?
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_idea
+    @idea = Idea.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def idea_params
+    params.require(:idea).permit(:name, :description, :picture, :draft)
+  end
 end
